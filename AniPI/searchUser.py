@@ -59,7 +59,7 @@ class SearchUser:
         fav = self.response.json()['data']['User']['favourites']['anime']['nodes']
         aniFav = []
         for i in range(len(fav)):
-            aniFav.append(fav[i]['title']['english'])
+            aniFav.append(str(fav[i]['title']['english']))
         ani = ", ".join(aniFav)
         return ani
 
@@ -70,3 +70,20 @@ class SearchUser:
             manFav.append(fav[i]['title']['english'])
         man = ", ".join(manFav)
         return man
+
+    def getUserEntriesFavAnime(self):
+        fav = self.response.json()['data']['User']['favourites']['anime']['nodes']
+        aniFav = []
+        for i in range(len(fav)):
+            aniFav.append(str(fav[i]['title']['english']))
+        return len(aniFav)
+
+    def getUserEntriesFavManga(self):
+        fav = self.response.json()['data']['User']['favourites']['manga']['nodes']
+        manFav = []
+        for i in range(len(fav)):
+            manFav.append(fav[i]['title']['english'])
+        return len(manFav)
+
+    def getUserSiteUrl(self):
+        return self.response.json()['data']['User']['siteUrl']
