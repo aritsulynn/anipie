@@ -1,1 +1,1 @@
-# AnilistPI
+# Anipie
