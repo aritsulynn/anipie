@@ -36,6 +36,7 @@ class SearchManga:
                 siteUrl
                 chapters
                 volumes
+                format
             }
         }
         '''
@@ -63,36 +64,25 @@ class SearchManga:
         for i in (('<br>',''), ('<i>', ''), ('<i/>', ''), ('<br/>', '')):
           des = des.replace(*i)
 
-        if len(des) > 800:
-          des = des[:800] + "..."
         return  des
 
     def getMangaStartDate(self):
         if self.response.json()['data']['Media']['startDate']['day'] == None:
             return "N/A"
-        else:
-            media = self.response.json()['data']['Media']
-            yearStart = media['startDate']['year']
-            monthStart = media['startDate']['month']
-            dayStart = media['startDate']['day']
-            return str(monthStart) + '/' + str(dayStart) + '/' + str(yearStart)
+        media = self.response.json()['data']['Media']
+        return str(media['startDate']['month']) + '/' + str(media['startDate']['day']) + '/' + str(media['startDate']['year'])
 
     def getMangaEndDate(self):
         if self.response.json()['data']['Media']['endDate']['day'] == None:
             return "N/A"
-        else:
-            media = self.response.json()['data']['Media']
-            yearEnd = media['endDate']['year']
-            monthEnd = media['endDate']['month']
-            dayEnd = media['endDate']['day']
-            return str(monthEnd) + '/' + str(dayEnd) + '/' + str(yearEnd)
+        media = self.response.json()['data']['Media']
+        return str(media['endDate']['month']) + '/' + str(media['endDate']['day']) + '/' + str(media['endDate']['year'])
 
     def getMangaCoverImage(self):
         return self.response.json()['data']['Media']['coverImage']['large']
 
     def getMangaGenres(self):
-        genres = self.response.json()['data']['Media']['genres']
-        genres = ", ".join(genres)
+        genres = ", ".join(self.response.json()['data']['Media']['genres'])
         return genres
     
     def getMangaSiteUrl(self):
@@ -109,4 +99,14 @@ class SearchManga:
         return self.response.json()['data']['Media']['chapters']
 
     def getMangaAverageScore(self):
+        if self.response.json()['data']['Media']['averageScore'] == None:
+            return "N/A"
         return int(self.response.json()['data']['Media']['averageScore']) / 10
+
+    def getMangaFormat(self):
+        if self.response.json()['data']['Media']['format'] == None:
+            return "N/A"
+        return self.response.json()['data']['Media']['format']
+
+    def getMangaID(self):
+        return self.response.json()['data']['Media']['id']

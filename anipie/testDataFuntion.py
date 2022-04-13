@@ -1,4 +1,3 @@
-from re import A
 from searchAnime import SearchAnime as sa
 from searchManga import SearchManga as sm
 from searchUser import SearchUser as su
@@ -19,7 +18,10 @@ def testSearchAnime(name):
     print(anime.getAnimeGenres())
     print(anime.getAnimeCoverImage())
     print(anime.getAnimeSiteUrl())
+    print(anime.getAnimeSeason())
+    print(anime.getAnimeFormat())
 
+    print("=========================================")
 
 def testSearchManga(name):
     manga = sm(name)
@@ -36,7 +38,9 @@ def testSearchManga(name):
     print(manga.getMangaSiteUrl())
     print(manga.getMangaChapters())
     print(manga.getMangaVolumes())
+    print(manga.getMangaFormat())
 
+    print("=========================================")
 
 def testSearchUser(name):
     user = su(name)
@@ -47,6 +51,7 @@ def testSearchUser(name):
     print(user.getUserFavouritesAnime())
     print(user.getUserFavouritesManga())
 
+    print("=========================================")
 
 def statisticTestAnime():
     a = sa("Ano hana")
@@ -62,8 +67,10 @@ def statisticTestAnime():
     if a.getAnimeGenres() == 'Drama, Romance, Slice of Life, Supernatural': count += 1
     if a.getAnimeCoverImage() == 'https://s4.anilist.co/file/anilistcdn/media/anime/cover/medium/bx9989-qCd2RgAL0P8I.png': count += 1
     if a.getAnimeSiteUrl() == 'https://anilist.co/anime/9989': count += 1
-    
-    print("Test Passed : Anohana") if count == 11 else print("Anime Test Failed")
+    if a.getAnimeSeason() == 'SPRING': count += 1
+    if a.getAnimeFormat() == 'TV': count += 1
+
+    print("Anime Test Passed : Ano hana") if count == 13 else print("Anime Test Failed")
 
 def statisticTestManga():
     m = sm("Citrus")
@@ -80,5 +87,7 @@ def statisticTestManga():
     if m.getMangaSiteUrl() == 'https://anilist.co/manga/80145': count += 1
     if m.getMangaChapters() == 50: count += 1
     if m.getMangaVolumes() == 10: count += 1
-    print ("Manga Test Passed : Citrus") if count == 11 else print("Manga Test Failed")
+    if m.getMangaFormat() == 'MANGA': count += 1
+
+    print ("Manga Test Passed : Citrus") if count == 12 else print("Manga Test Failed")
 
