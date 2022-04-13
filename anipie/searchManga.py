@@ -10,33 +10,33 @@ class SearchManga:
     def mangaSearch(self):
         self.query = '''
         query ($search: String! $type: MediaType!) { 
-        Media (search: $search type: $type) { 
-            id
-            title {
-                romaji
-                english
+            Media (search: $search type: $type) { 
+                id
+                title {
+                    romaji
+                    english
+                }
+                status
+                description
+                averageScore
+                startDate {
+                    year
+                    month
+                    day
+                }
+                endDate {
+                    year
+                    month
+                    day
+                }
+                coverImage {
+                    large  
+                }
+                genres
+                siteUrl
+                chapters
+                volumes
             }
-            status
-            description
-            averageScore
-            startDate {
-                year
-                month
-                day
-            }
-            endDate {
-                year
-                month
-                day
-            }
-            coverImage {
-                large  
-            }
-            genres
-            siteUrl
-            chapters
-            volumes
-        }
         }
         '''
         self.variables = {
@@ -60,7 +60,7 @@ class SearchManga:
     
     def getMangaDescription(self):
         des = self.response.json()['data']['Media']['description']
-        for i in (('<br>',''), ('<i>', ''), ('</i>', ''), ('<br/>', '')):
+        for i in (('<br>',''), ('<i>', ''), ('<i/>', ''), ('<br/>', '')):
           des = des.replace(*i)
 
         if len(des) > 800:
@@ -68,7 +68,7 @@ class SearchManga:
         return  des
 
     def getMangaStartDate(self):
-        if self.response.json()['data']['Media']['startDate'] == None:
+        if self.response.json()['data']['Media']['startDate']['day'] == None:
             return "N/A"
         else:
             media = self.response.json()['data']['Media']
@@ -78,7 +78,7 @@ class SearchManga:
             return str(monthStart) + '/' + str(dayStart) + '/' + str(yearStart)
 
     def getMangaEndDate(self):
-        if self.response.json()['data']['Media']['endDate'] == None:
+        if self.response.json()['data']['Media']['endDate']['day'] == None:
             return "N/A"
         else:
             media = self.response.json()['data']['Media']

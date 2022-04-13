@@ -10,30 +10,30 @@ class SearchUser:
     def userSearch(self):
         self.query = '''
         query ($search: String!) { 
-        User(search: $search){
-            name
-            avatar {
-            large
-            }
-            about
-            siteUrl
-            favourites{
-            anime {
-                nodes{
-                title {
-                    english
+            User(search: $search){
+                name
+                avatar {
+                large
+                }
+                about
+                siteUrl
+                favourites{
+                anime {
+                    nodes{
+                        title {
+                            english
+                        }
+                    }
+                }
+                manga{
+                    nodes{
+                        title{
+                            english
+                        }
+                    }
                 }
                 }
             }
-            manga{
-                nodes{
-                title{
-                    english
-                }
-                }
-            }
-            }
-        }
         }
         '''
         self.variables = {

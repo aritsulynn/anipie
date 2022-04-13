@@ -60,7 +60,7 @@ class SearchAnime:
     
     def getAnimeDescription(self):
         des = self.response.json()['data']['Media']['description']
-        for i in (('<br>',''), ('<i>', ''), ('</i>', ''), ('<br/>', '')):
+        for i in (('<br>',''), ('<i>', ''), ('<i/>', ''), ('<br/>', '')):
           des = des.replace(*i)
 
         if len(des) > 800:
@@ -68,7 +68,10 @@ class SearchAnime:
         return  des
     
     def getAnimeEpisodes(self):
-        return self.response.json()['data']['Media']['episodes']
+        if self.response.json()['data']['Media']['episodes'] == None:
+            return "N/A"
+        else:
+            return self.response.json()['data']['Media']['episodes']
 
     def getAnimeCoverImage(self):
         return self.response.json()['data']['Media']['coverImage']['large']
@@ -82,8 +85,8 @@ class SearchAnime:
         return self.response.json()['data']['Media']['siteUrl']
 
     def getAnimeStartDate(self):
-        if self.response.json()['data']['Media']['startDate'] == None:
-            return "Unknown"
+        if self.response.json()['data']['Media']['startDate']['day'] == None:
+            return "N/A"
         else:
             media = self.response.json()['data']['Media']
             yearStart = media['startDate']['year']
@@ -92,8 +95,8 @@ class SearchAnime:
             return str(monthStart) + '/' + str(dayStart) + '/' + str(yearStart)
 
     def getAnimeEndDate(self):
-        if self.response.json()['data']['Media']['endDate'] == None:
-            return "Unknown"
+        if self.response.json()['data']['Media']['endDate']['day'] == None:
+            return "N/A"
         else:
             media = self.response.json()['data']['Media']
             yearEnd = media['endDate']['year']
