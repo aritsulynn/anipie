@@ -62,7 +62,7 @@ class SearchAnime:
     
     def getAnimeDescription(self):
         des = self.response.json()['data']['Media']['description']
-        for i in (('<br>',''), ('<i>', ''), ('<i/>', ''), ('<br/>', '')):
+        for i in (('<br>',''), ('<i>', ''), ('<i/>', ''), ('<br/>', ''), ('</i>', '')):
           des = des.replace(*i)
 
         return  des

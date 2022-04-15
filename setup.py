@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="anipie", 
-    version="0.0.1",
+    version="0.0.2",
     author="Ritsu",
     author_email="lynniswaifu@gmail.com",
     description="a simple python wrapper for the Anilist API",
