@@ -1,3 +1,4 @@
+import re
 import requests
 
 class SearchAnime:
@@ -62,10 +63,7 @@ class SearchAnime:
     
     def getAnimeDescription(self):
         des = self.response.json()['data']['Media']['description']
-        for i in (('<br>',''), ('<i>', ''), ('<i/>', ''), ('<br/>', ''), ('</i>', '')):
-          des = des.replace(*i)
-
-        return  des
+        return  re.sub(re.compile('<.*?>') , '', des)
     
     def getAnimeEpisodes(self):
         if self.response.json()['data']['Media']['episodes'] == None:

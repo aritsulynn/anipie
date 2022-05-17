@@ -1,4 +1,5 @@
 import requests
+import re
 
 class SearchManga:
     
@@ -61,10 +62,8 @@ class SearchManga:
     
     def getMangaDescription(self):
         des = self.response.json()['data']['Media']['description']
-        for i in (('<br>',''), ('<i>', ''), ('<i/>', ''), ('<br/>', ''), ('</i>', '')):
-          des = des.replace(*i)
+        return  re.sub(re.compile('<.*?>') , '', des)
 
-        return  des
 
     def getMangaStartDate(self):
         if self.response.json()['data']['Media']['startDate']['day'] == None:

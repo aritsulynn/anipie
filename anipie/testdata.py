@@ -1,8 +1,8 @@
 from testDataFuntion import *
 
 
-testSearchAnime('Ano hana')
-# testSearchManga('Ano hana')
+# testSearchAnime('Ano hana')
+testSearchManga('Citrus')
 # testSearchUser('Rintsu')
 
 
