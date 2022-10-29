@@ -47,64 +47,54 @@ class SearchAnime:
         }
         self.url = 'https://graphql.anilist.co'
         self.response = requests.post(self.url, json={'query': self.query, 'variables': self.variables})
-    
+        self.response = self.response.json()
+        self.Media = self.response.get('data').get('Media')
 
     def getAnimeData(self):
-        return self.response.json()
+        return self.response
 
     def getAnimeRomajiName(self):
-        return self.response.json()['data']['Media']['title']['romaji']
+        return self.Media.get('title').get('romaji')
 
     def getAnimeEnglishName(self):
-        return self.response.json()['data']['Media']['title']['english']
+        return self.Media.get('title').get('english')
     
     def getAnimeStatus(self):
-        return self.response.json()['data']['Media']['status']
+        return self.Media.get('status')
     
     def getAnimeDescription(self):
-        des = self.response.json()['data']['Media']['description']
+        des = self.Media.get('description')
         return  re.sub(re.compile('<.*?>') , '', des)
     
     def getAnimeEpisodes(self):
-        if self.response.json()['data']['Media']['episodes'] == None:
-            return "N/A"
-        return self.response.json()['data']['Media']['episodes']
+        return self.Media.get('episodes')
 
     def getAnimeCoverImage(self):
-        return self.response.json()['data']['Media']['coverImage']['large']
+        return self.Media.get('coverImage').get('large')
     
     def getAnimeGenres(self):
-        genres = ", ".join(self.response.json()['data']['Media']['genres'])
-        return genres
+        return ", ".join(self.Media.get('genres'))
     
     def getAnimeSiteUrl(self):
-        return self.response.json()['data']['Media']['siteUrl']
+        return self.Media.get('siteUrl')
 
     def getAnimeStartDate(self):
-        if self.response.json()['data']['Media']['startDate']['day'] == None:
-            return "N/A"
-        media = self.response.json()['data']['Media']
-        return str(media['startDate']['month']) + '/' + str(media['startDate']['day']) + '/' + str(media['startDate']['year'])
+        esd = self.Media.get('startDate')
+        return str(esd.get('month')) + '/' + str(esd.get('day')) + '/' + str(esd.get('year'))
 
     def getAnimeEndDate(self):
-        if self.response.json()['data']['Media']['endDate']['day'] == None:
-            return "N/A"
-        media = self.response.json()['data']['Media']
-        return str(media['endDate']['month']) + '/' + str(media['endDate']['day']) + '/' + str(media['endDate']['year'])
+        exp = self.Media.get('endDate')
+        return str(exp.get('month')) + '/' + str(exp.get('day')) + '/' + str(exp.get('year'))
 
     def getAnimeAverageScore(self):
-        return int(self.response.json()['data']['Media']['averageScore']) / 10
+        return int(self.Media.get('averageScore'))/10
 
 
     def getAnimeSeason(self):
-        if self.response.json()['data']['Media']['season'] == None:
-            return "N/A"
-        return self.response.json()['data']['Media']['season']
+        return self.Media.get('season')
 
     def getAnimeFormat(self):
-        if self.response.json()['data']['Media']['format'] == None:
-            return "N/A"
-        return self.response.json()['data']['Media']['format']
+        return self.Media.get('format')
 
     def getAnimeID(self):
-        return self.response.json()['data']['Media']['id']
+        return self.Media.get('id')
