@@ -1,2 +1,2 @@
-from anipie.searchAnime import SearchAnime
-from anipie.searchManga import SearchManga
+from .searchAnime import SearchAnime
+from .searchManga import SearchManga

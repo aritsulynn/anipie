@@ -1,10 +1,11 @@
 import requests
 import re
 
+
 class SearchManga:
-    
-    def __init__(self, search):
-        self.search = search
+
+    def __init__(self, title):
+        self.title = title
         self.response = None
         self.mangaSearch()
 
@@ -42,11 +43,12 @@ class SearchManga:
         }
         '''
         self.variables = {
-            'search' : self.search,
-            'type' : 'MANGA',
+            'search': self.title,
+            'type': 'MANGA',
         }
         self.url = 'https://graphql.anilist.co'
-        self.response = requests.post(self.url, json={'query': self.query, 'variables': self.variables})
+        self.response = requests.post(
+            self.url, json={'query': self.query, 'variables': self.variables})
         self.response = self.response.json()
         self.Media = self.response.get('data').get('Media')
 
@@ -55,17 +57,16 @@ class SearchManga:
 
     def getMangaRomajiName(self):
         return self.Media.get('title').get('romaji')
-    
+
     def getMangaEnglishName(self):
         return self.Media.get('title').get('english')
 
     def getMangaStatus(self):
         return self.Media.get('status')
-    
+
     def getMangaDescription(self):
         des = self.Media.get('description')
-        return  re.sub(re.compile('<.*?>') , '', des)
-
+        return re.sub(re.compile('<.*?>'), '', des)
 
     def getMangaStartDate(self):
         esd = self.Media.get('startDate')
@@ -80,7 +81,7 @@ class SearchManga:
 
     def getMangaGenres(self):
         return ", ".join(self.Media.get('genres'))
-    
+
     def getMangaSiteUrl(self):
         return self.Media.get('siteUrl')
 

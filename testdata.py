@@ -1,9 +1,8 @@
-from searchAnime import SearchAnime as sa
-from searchManga import SearchManga as sm
-
+from anipie import SearchAnime, SearchManga
 
 def testSearchAnime(name):
-    anime = sa(name)
+    anime = SearchAnime(name)
+
     print(anime.getAnimeData())
     # print(anime.getAnimeID())
     print(anime.getAnimeEnglishName())
@@ -20,14 +19,14 @@ def testSearchAnime(name):
     print(anime.getAnimeSeason())
     print(anime.getAnimeFormat())
 
-    print("=========================================")
+print("=========================================")
 
 def testSearchManga(name):
-    manga = sm(name)
+    manga = SearchManga(name)
     # print(manga.getMangaData())
     print(manga.getMangaEnglishName())
-    print(manga.getMangaRomajiName()) 
-    print(manga.getMangaDescription()) 
+    print(manga.getMangaRomajiName())
+    print(manga.getMangaDescription())
     print(manga.getMangaStatus())
     print(manga.getMangaStartDate())
     print(manga.getMangaEndDate())

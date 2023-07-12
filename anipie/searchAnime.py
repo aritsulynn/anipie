@@ -1,12 +1,12 @@
 import re
 import requests
 
+
 class SearchAnime:
 
-    def __init__(self, search):
-        self.search = search
+    def __init__(self, title):
+        self.title = title
         self.animeSearch()
-
 
     def animeSearch(self):
         self.query = '''
@@ -42,11 +42,12 @@ class SearchAnime:
         }
         '''
         self.variables = {
-            'search' : self.search,
-            'type' : 'ANIME',
+            'search': self.title,
+            'type': 'ANIME',
         }
         self.url = 'https://graphql.anilist.co'
-        self.response = requests.post(self.url, json={'query': self.query, 'variables': self.variables})
+        self.response = requests.post(
+            self.url, json={'query': self.query, 'variables': self.variables})
         self.response = self.response.json()
         self.Media = self.response.get('data').get('Media')
 
@@ -58,23 +59,23 @@ class SearchAnime:
 
     def getAnimeEnglishName(self):
         return self.Media.get('title').get('english')
-    
+
     def getAnimeStatus(self):
         return self.Media.get('status')
-    
+
     def getAnimeDescription(self):
         des = self.Media.get('description')
-        return  re.sub(re.compile('<.*?>') , '', des)
-    
+        return re.sub(re.compile('<.*?>'), '', des)
+
     def getAnimeEpisodes(self):
         return self.Media.get('episodes')
 
     def getAnimeCoverImage(self):
         return self.Media.get('coverImage').get('large')
-    
+
     def getAnimeGenres(self):
         return ", ".join(self.Media.get('genres'))
-    
+
     def getAnimeSiteUrl(self):
         return self.Media.get('siteUrl')
 
@@ -88,7 +89,6 @@ class SearchAnime:
 
     def getAnimeAverageScore(self):
         return int(self.Media.get('averageScore'))/10
-
 
     def getAnimeSeason(self):
         return self.Media.get('season')
