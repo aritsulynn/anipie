@@ -39,3 +39,7 @@ def testSearchManga(name):
     print(manga.getMangaFormat())
 
     print("=========================================")
+
+
+testSearchAnime('citrus')
+testSearchManga('citrus')
