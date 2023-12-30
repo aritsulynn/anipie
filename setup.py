@@ -3,7 +3,7 @@ import setuptools
 
 setuptools.setup(
     name="anipie", 
-    version="0.0.6",
+    version="{{VERSION_PLACEHOLDER}}",
     author="Aritsu",
     author_email="lynniswaifu@gmail.com",
     description="a simple python wrapper for the Anilist API",
