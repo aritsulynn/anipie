@@ -14,11 +14,11 @@ pip install anipie
   #### Example Code
   
   ```
-  import anipie
+  from anipie import SearchByQuery
 
-  citrus = anipie.SearchAnime("Citrus")
-  des = citrus.getAnimeDescription() # you can learn more in searchAnime.py, searchManga.py
-  print(des)
+  citrus = SearchByQuery('Citrus', type='anime')
+  # print(citrus.getRawData()) # for get raw dict
+  print(citrus.getDescription) # for get only description
   ```
 
   #### Output
