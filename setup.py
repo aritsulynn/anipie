@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+# with open("README.md", "r") as fh:
+#     long_description = fh.read()
 
 setup(
     name="anipie", 
@@ -9,7 +9,8 @@ setup(
     author="Aritsu",
     author_email="lynniswaifu@gmail.com",
     description="a simple python wrapper for the Anilist API",
-    long_description=long_description,
+    # long_description=long_description,
+    long_description="find out on github",
     long_description_content_type="text/markdown",
     url="https://github.com/aritsulynn/anipie",
     packages=find_packages(),
