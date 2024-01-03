@@ -57,26 +57,26 @@ class TestSearchByQuery(unittest.TestCase):
     def assert_search_results(self, query, test_response):
         """Assert common search results for anime or manga."""
         
-        self.assertEqual(query.getRawData(), test_response)
+        self.assertEqual(query.get_raw_data(), test_response)
         test_response = test_response.get('data').get('Media')
-        self.assertEqual(query.getRomanjiName, test_response.get('title').get('romaji'))
-        self.assertEqual(query.getEnglishName, test_response.get('title').get('english'))
-        self.assertEqual(query.getStatus, test_response.get('status'))
-        self.assertEqual(query.getDescription, (re.sub(re.compile('<.*?>'), '', test_response.get('description'))))
-        self.assertEqual(query.getAnimeEpisodes, test_response.get('episodes'))
-        self.assertEqual(query.getCoverImageURL, test_response.get('coverImage').get('large'))
-        self.assertEqual(query.getGenres, ", ".join(test_response.get('genres')))
-        self.assertEqual(query.getSiteURL, test_response.get('siteUrl'))
-        self.assertEqual(query.getStartDate, str(test_response.get('startDate').get('month')) + '/' + str(
+        self.assertEqual(query.get_romanji_name, test_response.get('title').get('romaji'))
+        self.assertEqual(query.get_english_name, test_response.get('title').get('english'))
+        self.assertEqual(query.get_status, test_response.get('status'))
+        self.assertEqual(query.get_description, (re.sub(re.compile('<.*?>'), '', test_response.get('description'))))
+        self.assertEqual(query.get_episodes, test_response.get('episodes'))
+        self.assertEqual(query.get_cover_image_url, test_response.get('coverImage').get('large'))
+        self.assertEqual(query.get_genres, ", ".join(test_response.get('genres')))
+        self.assertEqual(query.get_site_url, test_response.get('siteUrl'))
+        self.assertEqual(query.get_start_date, str(test_response.get('startDate').get('month')) + '/' + str(
             test_response.get('startDate').get('day')) + '/' + str(test_response.get('startDate').get('year')))
-        self.assertEqual(query.getEndDate, str(test_response.get('endDate').get('month')) + '/' + str(
+        self.assertEqual(query.get_end_date, str(test_response.get('endDate').get('month')) + '/' + str(
             test_response.get('endDate').get('day')) + '/' + str(test_response.get('endDate').get('year')))
-        self.assertEqual(query.getAverageScore, test_response.get('averageScore') / 10)
-        self.assertEqual(query.getSeason, test_response.get('season'))
-        self.assertEqual(query.getFormat, test_response.get('format'))
-        self.assertEqual(query.getID, test_response.get('id'))
-        self.assertEqual(query.getChapters, test_response.get('chapters'))
-        self.assertEqual(query.getVolumes, test_response.get('volumes'))
+        self.assertEqual(query.get_avg_score, test_response.get('averageScore') / 10)
+        self.assertEqual(query.get_season, test_response.get('season'))
+        self.assertEqual(query.get_format, test_response.get('format'))
+        self.assertEqual(query.get_id, test_response.get('id'))
+        self.assertEqual(query.get_chapters, test_response.get('chapters'))
+        self.assertEqual(query.get_volumes, test_response.get('volumes'))
 
     def test_search_anime_by_query(self):
         """Test the search anime by query."""

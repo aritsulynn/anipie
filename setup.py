@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="anipie", 
-    version='0.0.7',
+    version='{{VERSION_PLACEHOLDER}}',
     author="Aritsu",
     author_email="lynniswaifu@gmail.com",
     description="a simple python wrapper for the Anilist API",
