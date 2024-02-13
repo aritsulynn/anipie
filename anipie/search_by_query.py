@@ -25,15 +25,12 @@ class SearchByQuery:
             "type": self._type,
         }
         query = ANIME_QUERY if self._type.upper() == "ANIME" else MANGA_QUERY
-        try:
-            response = requests.post(
-                ANIME_API_URL, json={"query": query, "variables": variables}
-            )
-            response.raise_for_status()
-            self._response = response.json()
-            self._media = self._response.get("data").get("Media")
-        except requests.exceptions.RequestException as e:
-            return e
+        response = requests.post(
+            ANIME_API_URL, json={"query": query, "variables": variables}
+        )
+        response.raise_for_status()
+        self._response = response.json()
+        self._media = self._response.get("data").get("Media")
 
     def get_raw_data(self) -> dict:
         """Returns the raw JSON data from the API."""
