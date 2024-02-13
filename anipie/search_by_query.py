@@ -1,5 +1,6 @@
 import re
 import requests
+from anipie.exceptions import TitleNotFoundError
 from anipie.queries import ANIME_QUERY, MANGA_QUERY, ANIME_API_URL
 
 
@@ -32,8 +33,8 @@ class SearchByQuery:
             response.raise_for_status()
             self._response = response.json()
             self._media = self._response.get("data").get("Media")
-        except requests.exceptions.RequestException as e:
-            return e
+        except requests.exceptions.RequestException:
+            raise TitleNotFoundError(f"{self._title} was not found in Anilist")
 
     def get_raw_data(self) -> dict:
         """Returns the raw JSON data from the API."""
