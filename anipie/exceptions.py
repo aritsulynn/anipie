@@ -6,4 +6,13 @@ class AnipieException(Exception):
 class TitleNotFoundError(AnipieException):
     """Requested title was not found"""
 
-    pass
+    def __init__(self, message: str, /, *, title: str) -> None:
+        super().__init__(message)
+        self.title = title
+
+class QueryTypeError(AnipieException):
+    """Invalid query type"""
+
+    def __init__(self, message: str, /, *, type: str) -> None:
+        super().__init__(message)
+        self.type = type

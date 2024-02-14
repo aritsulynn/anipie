@@ -1,6 +1,6 @@
 import re
 import requests
-from anipie.exceptions import TitleNotFoundError
+from anipie.exceptions import QueryTypeError, TitleNotFoundError
 from anipie.queries import ANIME_QUERY, MANGA_QUERY, ANIME_API_URL
 
 
@@ -16,7 +16,7 @@ class SearchByQuery:
         elif self._type.upper() == "MANGA":
             self._type = "MANGA"
         else:
-            raise ValueError("Type must be either 'ANIME' or 'MANGA'")
+            raise QueryTypeError("Type must be either 'ANIME' or 'MANGA'", type=self._type)
         self._search()
 
     def _search(self) -> None:
@@ -34,7 +34,7 @@ class SearchByQuery:
             self._response = response.json()
             self._media = self._response.get("data").get("Media")
         except requests.exceptions.RequestException:
-            raise TitleNotFoundError(f"{self._title} was not found in Anilist")
+            raise TitleNotFoundError(f"{self._title} was not found in Anilist", title=self._title)
 
     def get_raw_data(self) -> dict:
         """Returns the raw JSON data from the API."""
