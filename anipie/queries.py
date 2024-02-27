@@ -1,7 +1,7 @@
-ANIME_API_URL = 'https://graphql.anilist.co'
+ANIME_API_URL = "https://graphql.anilist.co"
 
 
-ANIME_QUERY = '''
+ANIME_QUERY = """
 query ($search: String! $type: MediaType!) { 
             Media (search: $search type: $type) { 
                 id
@@ -32,9 +32,9 @@ query ($search: String! $type: MediaType!) {
                 format
             }
         }
-'''
+"""
 
-MANGA_QUERY = '''
+MANGA_QUERY = """
 query ($search: String! $type: MediaType!) { 
     Media (search: $search type: $type) { 
         id
@@ -65,4 +65,4 @@ query ($search: String! $type: MediaType!) {
         format
     }
 }
-'''
+"""

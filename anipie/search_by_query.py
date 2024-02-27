@@ -27,13 +27,22 @@ class SearchByQuery:
         query = ANIME_QUERY if self._type.upper() == "ANIME" else MANGA_QUERY
         try:
             response = requests.post(
-                ANIME_API_URL, json={"query": query, "variables": variables}
+                ANIME_API_URL,
+                json={"query": query, "variables": variables},
+                timeout=1,
+                verify=True,
             )
-            response.raise_for_status()
             self._response = response.json()
             self._media = self._response.get("data").get("Media")
-        except requests.exceptions.RequestException as e:
-            return e
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as errh:
+            raise SystemExit(errh)
+        except requests.exceptions.ReadTimeout as errrt:
+            raise TimeoutError(errrt)
+        except requests.exceptions.ConnectionError as conerr:
+            raise ConnectionError(conerr)
+        except requests.exceptions.RequestException as errex:
+            raise RuntimeError(errex)
 
     def get_raw_data(self) -> dict:
         """Returns the raw JSON data from the API."""
