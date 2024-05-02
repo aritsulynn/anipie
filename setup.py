@@ -1,11 +1,16 @@
+# run this command to build the package
+# python setup.py sdist bdist_wheel
+# run this command to upload the package to pypi
+# twine upload dist/*
 from setuptools import setup, find_packages
 
 # with open("README.md", "r") as fh:
 #     long_description = fh.read()
 
 setup(
-    name="anipie", 
-    version='{{VERSION_PLACEHOLDER}}',
+    name="anipie",
+    # version="{{VERSION_PLACEHOLDER}}",
+    version="0.0.9",
     author="Aritsu",
     author_email="lynniswaifu@gmail.com",
     description="a simple python wrapper for the Anilist API",
@@ -19,6 +24,6 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires= ['requests'],
-    python_requires='>=3.6',
+    install_requires=["requests"],
+    python_requires=">=3.8",
 )
