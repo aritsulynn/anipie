@@ -18,6 +18,29 @@ class SearchByQuery:
             raise ValueError("Type must be either 'ANIME' or 'MANGA'")
         self._search()
 
+    def __str__(self) -> str:
+        """Return all the information of the anime as a string."""
+        return (
+            f"Title: {self.get_romanji_name}\n"
+            f"English Name: {self.get_english_name}\n"
+            f"Romanji Name: {self.get_romanji_name}\n"
+            f"Type: {self._type}\n"
+            f"Status: {self.get_status}\n"
+            f"Description: {self.get_description}\n"
+            f"Episodes: {self.get_episodes}\n"
+            f"Cover Image URL: {self.get_cover_image_url}\n"
+            f"Genres: {self.get_genres}\n"
+            f"Site URL: {self.get_site_url}\n"
+            f"Start Date: {self.get_start_date}\n"
+            f"End Date: {self.get_end_date}\n"
+            f"Average Score: {self.get_avg_score}\n"
+            f"Season: {self.get_season}\n"
+            f"Format: {self.get_format}\n"
+            f"ID: {self.get_id}\n"
+            f"Chapters: {self.get_chapters}\n"
+            f"Volumes: {self.get_volumes}\n"
+        )
+
     def _search(self) -> None:
         """Perform the search for the anime."""
         variables = {
