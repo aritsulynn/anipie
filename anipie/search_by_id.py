@@ -1,8 +1,10 @@
 import requests
 from typing import Union
 
+from anipie.information import Information
 
-class SearchByID:
+
+class SearchByID(Information):
 
     def __init__(self, id: int, type: str = "ANIME") -> None:
         """Initialize the class."""
