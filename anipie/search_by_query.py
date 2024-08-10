@@ -9,21 +9,23 @@ class SearchByQuery:
     def __init__(self, title, type="ANIME"):
         """Initialize the class."""
         self._title = title
-        self._type = type
-        if self._type.upper() == "ANIME":
-            self._type = "ANIME"
-        elif self._type.upper() == "MANGA":
-            self._type = "MANGA"
-        else:
+        self._type = type.upper()
+        if self._type not in ["ANIME", "MANGA"]:
             raise ValueError("Type must be either 'ANIME' or 'MANGA'")
         self._search()
 
     def __str__(self) -> str:
         """Return all the information of the anime as a string."""
+
+        if self._type.upper() == "MANGA":
+            manga_str = (
+                f"Chapters: {self.get_chapters}\n" f"Volumes: {self.get_volumes}\n"
+            )
+
         return (
             f"Title: {self.get_romanji_name}\n"
-            f"English Name: {self.get_english_name}\n"
-            f"Romanji Name: {self.get_romanji_name}\n"
+            f"English Title: {self.get_english_name}\n"
+            f"Romaji Title: {self.get_romanji_name}\n"
             f"Type: {self._type}\n"
             f"Status: {self.get_status}\n"
             f"Description: {self.get_description}\n"
@@ -37,9 +39,7 @@ class SearchByQuery:
             f"Season: {self.get_season}\n"
             f"Format: {self.get_format}\n"
             f"ID: {self.get_id}\n"
-            f"Chapters: {self.get_chapters}\n"
-            f"Volumes: {self.get_volumes}\n"
-        )
+        ) + (manga_str if self._type.upper() == "MANGA" else "")
 
     def _search(self) -> None:
         """Perform the search for the anime."""
@@ -47,7 +47,7 @@ class SearchByQuery:
             "search": self._title,
             "type": self._type,
         }
-        query = ANIME_QUERY if self._type.upper() == "ANIME" else MANGA_QUERY
+        query = ANIME_QUERY if self._type == "ANIME" else MANGA_QUERY
         try:
             response = requests.post(
                 ANIME_API_URL,
@@ -112,34 +112,34 @@ class SearchByQuery:
         """Returns the site url of the anime."""
         return self._media.get("siteUrl")
 
+    def __handle_date(self, date) -> str:
+        """Handle the date."""
+
+        month = date.get("month")
+        day = date.get("day")
+        year = date.get("year")
+
+        return (
+            f"{month}/{day}/{year}"
+            if month is not None and day is not None and year is not None
+            else None
+        )
+
     @property
     def get_start_date(self) -> str:
         """Returns the start date of the anime."""
-        esd = self._media.get("startDate")
-        return (
-            str(esd.get("month"))
-            + "/"
-            + str(esd.get("day"))
-            + "/"
-            + str(esd.get("year"))
-        )
+        return self.__handle_date(self._media.get("startDate"))
 
     @property
     def get_end_date(self) -> str:
         """Returns the end date of the anime."""
-        exp = self._media.get("endDate")
-        return (
-            str(exp.get("month"))
-            + "/"
-            + str(exp.get("day"))
-            + "/"
-            + str(exp.get("year"))
-        )
+        return self.__handle_date(self._media.get("endDate"))
 
     @property
     def get_avg_score(self) -> float:
         """Returns the average score of the anime."""
-        return int(self._media.get("averageScore")) / 10
+        average_score = self._media.get("averageScore")
+        return (int(average_score) / 10) or None
 
     @property
     def get_season(self) -> str:
@@ -159,9 +159,9 @@ class SearchByQuery:
     @property
     def get_chapters(self) -> int:
         """Returns the number of chapters of the manga."""
-        return self._media.get("chapters")
+        return self._media.get("chapters") or None
 
     @property
     def get_volumes(self) -> int:
         """Returns the number of volumes of the manga."""
-        return self._media.get("volumes")
+        return self._media.get("volumes") or None

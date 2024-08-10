@@ -1,4 +1,8 @@
-from anipie import SearchByQuery
+import sys
+import os
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from anipie.search_by_query import SearchByQuery
 
 # , SearchManga
 import re
@@ -6,6 +10,7 @@ import unittest
 from unittest.mock import patch, Mock
 
 
+# didn't update yet
 class TestSearchByQuery(unittest.TestCase):
     """Test the SearchByQuery class."""
 
