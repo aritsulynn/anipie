@@ -1,5 +1,15 @@
-# from .searchAnime import SearchAnime
-# from .searchManga import SearchManga
+"""
+Anipie - A comprehensive wrapper for the AniList GraphQL API.
+"""
 
-from .search_by_query import SearchByQuery
-from .search_by_id import SearchByID
+from .client import AnipieClient
+from .models.animeMedia import AnimeMedia
+from .models.mangaMedia import MangaMedia
+
+__version__ = "0.1.0"
+
+__all__ = [
+    "AnipieClient",
+    "AnimeMedia",
+    "MangaMedia"
+]
